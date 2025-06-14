@@ -1,8 +1,8 @@
 # MDR-IOG
 
-In this project, we propose a multimodal framework, **M**ultimodal **D**etection to **R**edirection of **I**llegal **O**nline **G**ambling sites (MDR-IOG), that detects websites leading to illegal gambling websites using three modalities.
+In this project, we propose a multimodal framework, _**M**ultimodal **D**etection to **R**edirection of **I**llegal **O**nline **G**ambling_ sites (`MDR-IOG`), that detects websites leading to illegal gambling websites using three modalities.
 
-- We utilize `MDR-IOG`, a Korean specialized CLIP variant, to project text and image embedding into the same semantic space.
+- We utilize `KoCLIP`, a Korean specialized CLIP variant, to project text and image embedding into the same semantic space.
 - We design and apply Gated Attention Block to effectively integrate input modalities.
 
 ### Framework Overview

@@ -50,7 +50,7 @@ REDIRECTION/
 
 
 # Get Started
-1. Create an virtual environment with Python 3.13 and install the required packages in `requirements.txt`.
+1. Create an virtual environment with Python 3.12 and install the required packages in `requirements.txt`.
 ```
 pip install -r requirements.txt
 ```

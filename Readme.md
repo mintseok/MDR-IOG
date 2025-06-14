@@ -1,13 +1,13 @@
-# TriModal
+# MDR-IOG
 
-In this project, we propose a multimodal framework, `TriModal`, that detects websites leading to illegal gambling websites using three modalities.
+In this project, we propose a multimodal framework, **M**ultimodal **D**etection to **R**edirection of **I**llegal **O**nline **G**ambling sites (MDR-IOG), that detects websites leading to illegal gambling websites using three modalities.
 
-- We utilize `KoCLIP`, a Korean specialized CLIP variant, to project text and image embedding into the same semantic space.
+- We utilize `MDR-IOG`, a Korean specialized CLIP variant, to project text and image embedding into the same semantic space.
 - We design and apply Gated Attention Block to effectively integrate input modalities.
 
 ### Framework Overview
 ![images](./images/framework_overview.png)
-- This is the overview of our framework, `TriModal`. We effectively integrate HTML text and features from the initial web page (`start.txt`) and the landing page (`end.txt`), and finally a screenshot of the final landing page (`end_screenshot.png`).
+- This is the overview of our framework, `MDR-IOG`. We effectively integrate HTML text and features from the initial web page (`start.txt`) and the landing page (`end.txt`), and finally a screenshot of the final landing page (`end_screenshot.png`).
 - We collect 123 keywords and 14 domains, resulting 12,054 search queries.
 - We perform data crawling using the Google Selenium Chrome Webdriver.
 - Then we embed the data using `KoCLIP` (https://github.com/jaketae/koclip/tree/master). We also extract features related to redirection from the resource collected from the initial web page.

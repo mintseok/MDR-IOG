@@ -9,8 +9,9 @@ def map_labels_to_three_classes(label):
         return 2
 
 class MultimodalDataset(Dataset):
-    def __init__(self, start_dir, end_dir, image_dir):
+    def __init__(self, start_dir, end_dir, image_dir, n_class):
         self.data = []
+        self.n_class = n_class
 
         for label_folder in os.listdir(start_dir):
             start_label_path = os.path.join(start_dir, label_folder)
@@ -56,9 +57,11 @@ class MultimodalDataset(Dataset):
 
         # Map labels (Map 0→0, 1→1, Others→2)
         original_label = item["label"]
-        mapped_label = map_labels_to_three_classes(original_label)
-        
-        label = torch.tensor(mapped_label, dtype=torch.long)
+        if self.n_class == 3:
+            mapped_label = map_labels_to_three_classes(original_label)
+            label = torch.tensor(mapped_label, dtype=torch.long)
+        elif self.n_class == 6:
+            label = torch.tensor(original_label, dtype=torch.long)
 
         return {
             "start": {

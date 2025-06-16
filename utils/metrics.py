@@ -68,7 +68,7 @@ def report_fnr_fpr(y_true, y_pred, class_names):
     return df
 
 
-def evaluate(model, loader, device, detailed=False, logf=None):
+def evaluate(model, loader, device, n_class, detailed=False, logf=None):
     model.eval()
     all_preds = []
     all_labels = []
@@ -113,12 +113,40 @@ def evaluate(model, loader, device, detailed=False, logf=None):
             logf.write(f"label: {folder[0]}, pred: {folder[1]}\n")
         logf.flush()
     
-    if detailed:
+    if detailed and n_class == 3:
         class_names = ["Normal", "Gambling", "Others"]
         print("\n📊 Classification Report")
 
         # precision, recall, f1, support
         prec, recall, f1, support = precision_recall_fscore_support(all_labels, all_preds, labels=[0, 1, 2])
+        total = np.sum(support)
+
+        # macro avg
+        macro_prec = np.mean(prec)
+        macro_recall = np.mean(recall)
+        macro_f1 = np.mean(f1)
+
+        # weighted avg
+        weighted_prec = np.sum(prec * support) / total
+        weighted_recall = np.sum(recall * support) / total
+        weighted_f1 = np.sum(f1 * support) / total
+
+        # 출력
+        print(f"{'':<10} {'precision':>10} {'recall':>10} {'f1-score':>10} {'support':>10}")
+        for i, cls in enumerate(class_names):
+            print(f"{cls:<10} {prec[i]:10.4f} {recall[i]:10.4f} {f1[i]:10.4f} {support[i]:10d}")
+        print(f"{'accuracy':<10} {'':>10} {'':>10} {acc:10.4f} {total:10d}")
+        print(f"{'macro avg':<10} {macro_prec:10.4f} {macro_recall:10.4f} {macro_f1:10.4f} {total:10d}")
+        print(f"{'weighted avg':<10} {weighted_prec:10.4f} {weighted_recall:10.4f} {weighted_f1:10.4f} {total:10d}")
+
+        report_fnr_fpr(all_labels, all_preds, class_names)
+    
+    elif detailed and n_class == 6:
+        class_names = ["Normal", "Gambling", "Adult", "Pharmaceutical", "Investment", "Others"]
+        print("\n📊 Classification Report")
+
+        # precision, recall, f1, support
+        prec, recall, f1, support = precision_recall_fscore_support(all_labels, all_preds, labels=[0, 1, 2, 3, 4, 5])
         total = np.sum(support)
 
         # macro avg

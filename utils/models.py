@@ -49,9 +49,9 @@ class GatedAttentionBlock(nn.Module):
 
         return self.out_proj(gated)
 
-# TriModal
-class TriModalClassifier(nn.Module):
-    def __init__(self, use_start=True, use_end=True, use_image=True, num_classes=3):
+# MDR-IOG
+class MDRIOG(nn.Module):
+    def __init__(self, use_start=True, use_end=True, use_image=True, n_class=3):
         super().__init__()
         self.use_start = use_start
         self.use_end = use_end
@@ -81,7 +81,7 @@ class TriModalClassifier(nn.Module):
         self.classifier = nn.Sequential(
             nn.Linear(in_dim, 512),
             nn.ReLU(),
-            nn.Linear(512, num_classes)
+            nn.Linear(512, n_class)
         )
 
     def forward(self, start_text=None, start_feat=None, end_text=None, image_emb=None):
